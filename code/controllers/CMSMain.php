@@ -634,7 +634,34 @@ class CMSMain extends LeftAndMain implements CurrentPageIdentifier, PermissionPr
 	}
 
 	public function listview($request) {
-		return $this->renderWith($this->getTemplatesWithSuffix('_ListView'));
+		$crumbs = new ArrayList();
+		// Build inline breadcrumbs
+		if($parentID = $request->getVar('ParentID')) {
+			$page = DataObject::get_by_id('SiteTree', $parentID);
+
+			//build a reversed list of the parent tree
+			$pages = array();
+			while($page) {
+				array_unshift($pages, $page); //add to start of array so that array is in reverse order
+				$page = $page->Parent;
+			}
+
+			//turns the title and link of the breadcrumbs into template-friendly variables
+			$params = array_filter(array(
+				'view' => 'list',
+				'q' => $request->getVar('q')
+			));
+			foreach($pages as $page) {
+				$params['ParentID'] = $page->ID;
+				$crumbs->push(new ArrayData(array(
+					'Title' => $page->Title,
+					'Link' => Controller::join_links($this->Link(), '?' . http_build_query($params))
+				)));
+			}
+		}
+		return $this->customise(array(
+			'Breadcrumbs' => $crumbs
+		))->renderWith($this->getTemplatesWithSuffix('_ListView'));
 	}
 	
 	/**

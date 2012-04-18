@@ -16,7 +16,10 @@
 	</div>
 	<% end_if %>
 
-	<div class="cms-list" data-url-list="$Link(getListViewHTML)">
+	<% include CMSBreadcrumbs %>
+
+	<div class="cms-list">
 		$ListViewForm
 	</div>
+
 </div>
