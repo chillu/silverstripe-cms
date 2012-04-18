@@ -1,12 +1,12 @@
 <div id="pages-controller-cms-content" class="cms-content center cms-tabset $BaseCSSClasses" data-layout-type="border">
 
 	<div class="cms-content-header north">
-		<div>
-			<h2>
+		<div class="cms-flextable">
+			<h2 class="cms-flextable-cell" data-ratio="0.5">
 				<% include CMSBreadcrumbs %>
 			</h2>
 		
-			<div class="cms-content-header-tabs">
+			<div class="cms-content-header-tabs" class="cms-flextable-cell" data-ratio="0.5">
 				<ul>
 					<li>
 						<a href="#cms-content-treeview" class="content-treeview cms-panel-link" data-href="$LinkTreeView"><% _t('CMSPagesController.TreeView', 'Tree View') %></a>
