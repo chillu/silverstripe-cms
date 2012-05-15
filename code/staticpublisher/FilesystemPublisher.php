@@ -107,6 +107,15 @@ class FilesystemPublisher extends StaticPublisher {
 				$urlSegment = $path;
 			}
 
+			// Avoid filesystem length limits by shortening the path through hashing instead
+			$urlSegmentParts = explode('/', $urlSegment);
+			foreach($urlSegmentParts as $i => $urlSegmentPart) {
+				var_dump($urlSegmentPart);
+				var_dump(strlen($urlSegmentPart));
+				if(strlen($urlSegmentPart) > 250) $urlSegmentParts[$i] = md5($urlSegmentPart);	
+			}
+			$urlSegment = implode('/', $urlSegmentParts);
+
 			// Normalize URLs
 			$urlSegment = trim($urlSegment, '/');
 
