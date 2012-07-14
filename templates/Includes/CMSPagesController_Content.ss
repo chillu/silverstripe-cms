@@ -1,4 +1,4 @@
-<div id="pages-controller-cms-content" class="cms-content center cms-tabset $BaseCSSClasses" data-layout-type="border" data-pjax-fragment="Content">
+<div id="pages-controller-cms-content" class="cms-content center cms-tabset $BaseCSSClasses" data-layout-type="border" data-pjax-fragment="Content" role="main" aria-label="Pages tree and list view">
 
 	<div class="cms-content-header north">
 		<div class="cms-content-header-info">
@@ -10,10 +10,10 @@
 		<div class="cms-content-header-tabs">
 			<ul>
 				<li class="content-treeview<% if ViewState == tree %> ui-tabs-selected<% end_if %>">
-					<a href="#cms-content-treeview" class="cms-panel-link" data-href="$LinkTreeView"><% _t('CMSPagesController.TreeView', 'Tree View') %></a>
+					<a href="#cms-content-treeview" data-href="$LinkTreeView"><% _t('CMSPagesController.TreeView', 'Tree View') %></a>
 				</li>
 				<li class="content-listview<% if ViewState == list %> ui-tabs-selected<% end_if %>">
-					<a href="#cms-content-listview" class="cms-panel-link" data-href="$LinkListView"><% _t('CMSPagesController.ListView', 'List View') %></a>
+					<a href="#cms-content-listview" data-href="$LinkListView"><% _t('CMSPagesController.ListView', 'List View') %></a>
 				</li>
 				<!--
 				<li class="content-galleryview">
@@ -28,11 +28,11 @@
 
 	<div class="cms-content-fields center ui-widget-content cms-panel-padded">
 		
-		<div class="cms-content-view cms-panel-deferred" id="cms-content-treeview" data-url="$LinkTreeView">
+		<div class="cms-content-view cms-panel-deferred" id="cms-content-treeview" data-url="$LinkTreeView" aria-live="polite">
 			<%-- Lazy-loaded via ajax --%>
 		</div>
 	
-		<div class="cms-content-view cms-panel-deferred" id="cms-content-listview" data-url="$LinkListView" data-deferred-no-cache="true">
+		<div class="cms-content-view cms-panel-deferred" id="cms-content-listview" data-url="$LinkListView" data-deferred-no-cache="true" aria-live="polite">
 			<%-- Lazy-loaded via ajax --%>
 		</div>
 		<!--
