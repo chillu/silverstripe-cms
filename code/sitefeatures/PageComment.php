@@ -61,7 +61,7 @@ class PageComment extends DataObject {
 
 	function DeleteLink() {
 		$token = SecurityToken::inst();
-		$link = $token->addToUrl("PageComment_Controller/deletecomment/$this->ID");
+		$link = $token->addToUrl("PageComment_Controller/deletecomment/" . (int)$this->ID);
 		
 		return ($this->canDelete()) ? $link : false;
 	}
@@ -74,19 +74,19 @@ class PageComment extends DataObject {
 	
 	function SpamLink() {
 		$token = SecurityToken::inst();
-		$link = $token->addToUrl("PageComment_Controller/reportspam/$this->ID");
+		$link = $token->addToUrl("PageComment_Controller/reportspam/" . (int)$this->ID);
 		return ($this->canEdit() && !$this->IsSpam) ? $link : false;
 	}
 	
 	function HamLink() {
 		$token = SecurityToken::inst();
-		$link = $token->addToUrl("PageComment_Controller/reportham/$this->ID");
+		$link = $token->addToUrl("PageComment_Controller/reportham/" . (int)$this->ID);
 		return ($this->canEdit() && $this->IsSpam) ? $link : false;
 	}
 	
 	function ApproveLink() {
 		$token = SecurityToken::inst();
-		$link = $token->addToUrl("PageComment_Controller/approve/$this->ID");
+		$link = $token->addToUrl("PageComment_Controller/approve/" . (int)$this->ID);
 		return ($this->canEdit() && $this->NeedsModeration) ? $link : false;
 	}
 	

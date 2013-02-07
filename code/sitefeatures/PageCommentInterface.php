@@ -260,7 +260,7 @@ class PageCommentInterface extends RequestHandler {
 	function DeleteAllLink() {
 		if(Permission::check('CMS_ACCESS_CommentAdmin')) {
 			$token = SecurityToken::inst();
-			return $token->addToUrl(Director::absoluteBaseURL() . "PageComment/deleteallcomments?pageid=" . $this->page->ID);
+			return $token->addToUrl(Director::absoluteBaseURL() . "PageComment/deleteallcomments?pageid=" . (int)$this->page->ID);
 		}
 	}
 	
@@ -353,7 +353,7 @@ class PageCommentInterface_Form extends Form {
 				if($page) {
 					// if it needs moderation then it won't appear in the list. Therefore
 					// we need to link to the comment holder rather than the individual comment
-					$url = ($comment->NeedsModeration) ? $page->Link() . '#PageComments_holder' : $page->Link() . '#PageComment_' . $comment->ID;
+					$url = ($comment->NeedsModeration) ? $page->Link() . '#PageComments_holder' : $page->Link() . '#PageComment_' . (int)$comment->ID;
 					
 					return Director::redirect($url);
 				}

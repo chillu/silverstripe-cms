@@ -118,8 +118,8 @@ class ThumbnailStripField extends FormField {
 					
 					$result .= 
 						'<li>' .
-							'<a href="' . $image->Filename . '?r=' . rand(1,100000) . '" title="' . $image->Title .   '">' .
-								'<img class="destwidth=' . round($width) . ',destheight=' . round($height) . '" src="'. $thumbnail->URL . '?r=' . rand(1,100000) . '" alt="' . $image->Title . '" />' .
+							'<a href="' . Convert::raw2xml($image->Filename) . '?r=' . rand(1,100000) . '" title="' . Convert::raw2xml($image->Title) .   '">' .
+								'<img class="destwidth=' . round($width) . ',destheight=' . round($height) . '" src="'. Convert::raw2xml($thumbnail->URL) . '?r=' . rand(1,100000) . '" alt="' . Convert::raw2xml($image->Title) . '" />' .
 							'</a>' .
 						'</li>';
 				}
@@ -128,7 +128,7 @@ class ThumbnailStripField extends FormField {
 		} 
 		else {
 			if($folder) {
-				$result = '<h2>' . _t('ThumbnailStripField.NOFOLDERIMAGESFOUND', 'No images found in') . ' ' . $folder->Title . '</h2>';
+				$result = '<h2>' . _t('ThumbnailStripField.NOFOLDERIMAGESFOUND', 'No images found in') . ' ' . Convert::raw2xml($folder->Title) . '</h2>';
 			} else {
 				$result = '<h2>' . _t('ThumbnailStripField.NOIMAGESFOUND', 'No images found') . '</h2>';
 			}
@@ -179,7 +179,7 @@ HTML;
 			$result .= '</ul>';			
 		} else {
 			if($folder) {
-				$result = '<h2>' . _t('ThumbnailStripField.NOFOLDERFLASHFOUND', 'No flash files found in') . ' ' . $folder->Title . '</h2>';
+				$result = '<h2>' . _t('ThumbnailStripField.NOFOLDERFLASHFOUND', 'No flash files found in') . ' ' . Convert::raw2xml($folder->Title) . '</h2>';
 			} else {
 				$result = '<h2>' . _t('ThumbnailStripField.NOFLASHFOUND', 'No flash files found') . '</h2>';
 			}

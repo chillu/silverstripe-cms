@@ -452,7 +452,7 @@ JS;
 			$idField->setValue($id);
 			
 			if($record->ID && is_numeric( $record->ID ) ) {
-				$liveRecord = Versioned::get_one_by_stage('SiteTree', 'Live', "\"SiteTree\".\"ID\" = $record->ID");
+				$liveRecord = Versioned::get_one_by_stage('SiteTree', 'Live', "\"SiteTree\".\"ID\" = " . (int)$record->ID);
 				if($liveRecord) $liveURLField->setValue($liveRecord->AbsoluteLink());
 			}
 			
@@ -590,7 +590,7 @@ JS;
 		// DataObject::fieldExists only checks the current class, not the hierarchy
 		// This allows the CMS to set the correct sort value
 		if($newItem->castingHelper('Sort')) {
-			$newItem->Sort = DB::query("SELECT MAX(\"Sort\") FROM \"SiteTree\" WHERE \"ParentID\" = '" . Convert::raw2sql($parentID) . "'")->value() + 1;
+			$newItem->Sort = DB::query("SELECT MAX(\"Sort\") FROM \"SiteTree\" WHERE \"ParentID\" = '" . (int)$parentID . "'")->value() + 1;
 		}
 
 		if($setID) $newItem->ID = $id;
@@ -698,7 +698,7 @@ JS;
 		if(Director::is_ajax()) {
 			// need a valid ID value even if the record doesn't have one in the database
 			// (its still present in the live tables)
-			$liveRecord = Versioned::get_one_by_stage('SiteTree', 'Live', "\"SiteTree_Live\".\"ID\" = $recordID");
+			$liveRecord = Versioned::get_one_by_stage('SiteTree', 'Live', "\"SiteTree_Live\".\"ID\" = " . (int)$recordID);
 			// if the page has never been published to live, we need to act the same way as in deletefromlive()
 			if($liveRecord) {
 				// the form is readonly now, so we need to refresh the representation
@@ -839,7 +839,7 @@ JS;
 		$JS_title = Convert::raw2js($page->TreeTitle());
 
 		$JS_stageURL = $page->IsDeletedFromStage ? '' : Convert::raw2js($page->AbsoluteLink());
-		$liveRecord = Versioned::get_one_by_stage('SiteTree', 'Live', "\"SiteTree\".\"ID\" = $page->ID");
+		$liveRecord = Versioned::get_one_by_stage('SiteTree', 'Live', "\"SiteTree\".\"ID\" = " . (int)$page->ID);
 
 		$JS_liveURL = $liveRecord ? Convert::raw2js($liveRecord->AbsoluteLink()) : '';
 
@@ -872,7 +872,7 @@ JS;
 
 	function getversion() {
 		$id = $this->urlParams['ID'];
-		$version = str_replace('&ajax=1','',$this->urlParams['OtherID']);
+		$version = str_replace('&ajax=1','',(int)$this->urlParams['OtherID']);
 		$record = Versioned::get_version("SiteTree", $id, $version);
 		
 		if($record) {

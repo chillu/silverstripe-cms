@@ -28,7 +28,7 @@ abstract class CMSSiteTreeFilter extends Object {
 		}
 
 		$leftAndMain = new CMSMain();
-		$tree = $leftAndMain->getSiteTreeFor('SiteTree', isset($_REQUEST['ID']) ? $_REQUEST['ID'] : 0, null, null, array($this, 'includeInTree'), count($this->ids));
+		$tree = $leftAndMain->getSiteTreeFor('SiteTree', isset($_REQUEST['ID']) ? (int)$_REQUEST['ID'] : 0, null, null, array($this, 'includeInTree'), count($this->ids));
 
 		// Trim off the outer tag
 		$tree = ereg_replace('^[ \t\r\n]*<ul[^>]*>','', $tree);
@@ -84,7 +84,7 @@ class CMSSiteTreeFilter_DeletedPages extends CMSSiteTreeFilter {
 	
 	function getTree() {
 		$leftAndMain = new CMSMain();
-		$tree = $leftAndMain->getSiteTreeFor('SiteTree', isset($_REQUEST['ID']) ? $_REQUEST['ID'] : 0, "AllHistoricalChildren", "numHistoricalChildren");
+		$tree = $leftAndMain->getSiteTreeFor('SiteTree', isset($_REQUEST['ID']) ? (int)$_REQUEST['ID'] : 0, "AllHistoricalChildren", "numHistoricalChildren");
 
 		// Trim off the outer tag
 		$tree = ereg_replace('^[ \t\r\n]*<ul[^>]*>','', $tree);

@@ -79,7 +79,7 @@ class AssetTableField extends ComplexTableField {
 	function FirstLink() {
 		$link = parent::FirstLink();
 		if($link && isset($_REQUEST['FileSearch'])) {
-			return $link . '&FileSearch=' . $_REQUEST['FileSearch'];
+			return $link . '&FileSearch=' . urlencode($_REQUEST['FileSearch']);
 		}
 		return $link;
 	}
@@ -87,7 +87,7 @@ class AssetTableField extends ComplexTableField {
 	function PrevLink() {
 		$link = parent::PrevLink();
 		if($link && isset($_REQUEST['FileSearch'])) {
-			return $link . '&FileSearch=' . $_REQUEST['FileSearch'];
+			return $link . '&FileSearch=' . urlencode($_REQUEST['FileSearch']);
 		}
 		return $link;
 	}
@@ -95,7 +95,7 @@ class AssetTableField extends ComplexTableField {
 	function NextLink() {
 		$link = parent::NextLink();
 		if($link && isset($_REQUEST['FileSearch'])) {
-			return $link . '&FileSearch=' . $_REQUEST['FileSearch'];
+			return $link . '&FileSearch=' . urlencode($_REQUEST['FileSearch']);
 		}
 		return $link;
 	}
@@ -103,7 +103,7 @@ class AssetTableField extends ComplexTableField {
 	function LastLink() {
 		$link = parent::LastLink();
 		if($link && isset($_REQUEST['FileSearch'])) {
-			return $link . '&FileSearch=' . $_REQUEST['FileSearch'];
+			return $link . '&FileSearch=' . urlencode($_REQUEST['FileSearch']);
 		}
 		return $link;
 	}
@@ -123,12 +123,12 @@ class AssetTableField extends ComplexTableField {
 					. implode(", " , $nextIDSet) . ") AND \"ClassName\" IN ($folderClasses)")->column();
 				if($nextIDSet) $folderIDs = array_merge($folderIDs, $nextIDSet);
 			}
-			
+			$folderIDs = Convert::raw2sql($folderIDs);
 			$this->sourceFilter .= " \"ParentID\" IN (" . implode(", ", $folderIDs) . ") AND \"ClassName\" <> 'Folder'";
 
 		// Otherwise just show the direct contents
 		} else {
-			$this->sourceFilter .= " \"ParentID\" = '" . $folder->ID . "' AND \"ClassName\" <> 'Folder'";
+			$this->sourceFilter .= " \"ParentID\" = '" . (int)$folder->ID . "' AND \"ClassName\" <> 'Folder'";
 		}
 	}
 	

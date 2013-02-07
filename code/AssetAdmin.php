@@ -486,11 +486,12 @@ HTML;
 		$record->write();
 		$title = Convert::raw2js($record->Title);
 		$name = Convert::raw2js($record->Name);
-		$saved = sprintf(_t('AssetAdmin.SAVEDFILE','Saved file %s'),"#$data[ID]");
+		$id = (int)$data['ID'];
+		$saved = sprintf(_t('AssetAdmin.SAVEDFILE','Saved file %s'), "#" . $id);
 		echo <<<JS
 			statusMessage('$saved');
-			$('record-$data[ID]').getElementsByTagName('td')[1].innerHTML = "$title";
-			$('record-$data[ID]').getElementsByTagName('td')[2].innerHTML = "$name";
+			$('record-$id').getElementsByTagName('td')[1].innerHTML = "$title";
+			$('record-$id').getElementsByTagName('td')[2].innerHTML = "$name";
 JS;
 	}
 	

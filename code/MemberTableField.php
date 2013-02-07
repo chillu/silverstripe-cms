@@ -407,7 +407,7 @@ class MemberTableField extends ComplexTableField {
 		}
 				
 		// We use the group to get the members, as they already have the bulk of the look up functions
-		$start = isset($_REQUEST['ctf'][$this->Name()]['start']) ? $_REQUEST['ctf'][$this->Name()]['start'] : 0; 
+		$start = isset($_REQUEST['ctf'][$this->Name()]['start']) ? (int)$_REQUEST['ctf'][$this->Name()]['start'] : 0; 
 		
 		$this->sourceItems = false;
 
