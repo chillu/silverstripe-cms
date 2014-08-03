@@ -5,7 +5,7 @@ namespace SilverStripe\Cms\Test\Behaviour;
 use Behat\Behat\Context\ClosuredContextInterface,
 	Behat\Behat\Context\TranslatedContextInterface,
 	Behat\Behat\Context\BehatContext,
-	Behat\Behat\Context\Step,
+	Behat\Behat\Definition\Call,
 	Behat\Behat\Event\StepEvent,
 	Behat\Behat\Exception\PendingException,
 	Behat\Mink\Driver\Selenium2Driver,
@@ -58,11 +58,11 @@ class FixtureContext extends \SilverStripe\BehatExtension\Context\FixtureContext
 		$page = \Page::get()->First();
            
 		return array(
-			new Step\Given('I am not logged in'),
-			new Step\Given('I am logged in with "' . $member . '" permissions'),
-			new Step\Given('I go to "/admin/pages/edit/show/' . $page->ID . '"'),
-			new Step\Given('I should' . $negative . 'see a "Page name" field'),
-			new Step\Then('I am on the homepage')
+			new Call\Given('I am not logged in'),
+			new Call\Given('I am logged in with "' . $member . '" permissions'),
+			new Call\Given('I go to "/admin/pages/edit/show/' . $page->ID . '"'),
+			new Call\Given('I should' . $negative . 'see a "Page name" field'),
+			new Call\Then('I am on the homepage')
 		);
 	}
 }
